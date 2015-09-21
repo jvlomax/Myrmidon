@@ -25,41 +25,28 @@ OTHER DEALINGS IN THE SOFTWARE.
  
 ---------------------
 
-Constants
+- BACKEND FILE -
+- AUDIO        -
+
+A Pygame (and conversely, SDL) driven backend for handling and playing audio.
+
 """
 
-S_KILL = 0
-S_WAKEUP = 1
-S_SLEEP = 2
-S_FREEZE = 3			
+from myrmidon import BaseAudio
+import sdl2
 
-ALIGN_TOP_LEFT = 0
-ALIGN_TOP = 1
-ALIGN_TOP_RIGHT = 2
-ALIGN_CENTER_LEFT = 3
-ALIGN_CENTER = 4
-ALIGN_CENTER_RIGHT = 5
-ALIGN_CENTRE_LEFT = 3
-ALIGN_CENTRE = 4
-ALIGN_CENTRE_RIGHT = 5
-ALIGN_BOTTOM_LEFT = 6
-ALIGN_BOTTOM = 7
-ALIGN_BOTTOM_RIGHT = 8 
+class Myrmidon_Backend(object):
+    
+    class Audio(BaseAudio):
 
-COLLISION_TYPE_RECTANGLE = 'rectangle'
-COLLISION_TYPE_CIRCLE = 'circle'
-COLLISION_TYPE_POINT = 'point'
-
-# BEWARE - HERE BE HACKS
-# This used to do this all the time, but it breaks when you're
-# not using PyGame as the input. Unfortunately I liked only needing
-# one import line. So we check for it instead.
-# We're trying catch because it's the default value so it's likely
-# that you will import consts before even setting it. Which is bloody
-# marvelous.
-try:
-    from myrmidon.Game import Game
-    if Game.engine_def['input'] == "sdl2":
-        from pygame.locals import *
-except ImportError:
-    pass
+        # Pointer to pygame Sound object
+        sound = None
+        
+        def __init__(self, audio = None):
+            if audio is None:
+                return
+            if isinstance(audio, str):
+                self.sound = sdl2.sdlmixer.Mix_Chunk
+            else:
+                self.sound = audio
+                

@@ -54,10 +54,10 @@ class Game(object):
     test_mode = False
 
     engine_def = {
-        "window" : "pygame",
-        "gfx" : "opengl",
-        "input" : "pygame",
-        "audio" : "pygame"
+        "window" : "sdl2",
+        "gfx" : "modern_opengl",
+        "input" : "sdl2",
+        "audio" : "sdl2"
         }
     engine_plugin_def = {
         "window" : [],

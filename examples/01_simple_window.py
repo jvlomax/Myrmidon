@@ -17,7 +17,7 @@ from myrmidon.consts import *
 
 # This example uses Pygame locals for it's input routines
 from pygame.locals import *
-
+import sdl2
 # An Entity object must be running before the application will open, in this case
 # we will have an Entity to represent our screen that will be responsible for
 # quitting the application upon hitting the escape key.
@@ -30,12 +30,13 @@ class Screen(Entity):
         # We want this entity to check for the escape key every frame, so we use a loop.
         while True:
             # Check for the escape key being pressed.
-            if Game.keyboard_key_down(K_ESCAPE):
+            if Game.keyboard_key_down(sdl2.SDLK_ESCAPE):
                 # We can safely use the typical Python system method for quitting.
                 sys.exit()
             # Each tick we leave the entity at the yield statement and will return here
             # in the next tick. If we returned instead of yielded our Entity would be
             # considered finished and would be destroyed.
+            sdl2.SDL_Delay(10)
             yield
 
 # We create our Entity object and start executing from it's code. As soon as an Entity

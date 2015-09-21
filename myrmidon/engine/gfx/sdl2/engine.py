@@ -35,10 +35,8 @@ Pygame is required for text rendering.
 """
 
 
-import sys, os, pygame, math
+import sys, os, math
 
-import sdl2
-import sdl2.ext
 from OpenGL.GL import *
 from OpenGL.GL.shaders import *
 from OpenGL.arrays import *
@@ -46,6 +44,8 @@ from OpenGL.arrays.vbo import *
 from OpenGL.GLU import *
 from numpy import array
 from collections import defaultdict
+
+import sdl2
 
 from myrmidon import Game, Entity, MyrmidonError
 from myrmidon.consts import *
@@ -70,7 +70,7 @@ class Myrmidon_Backend(object):
 
     def __init__(self):
         Game.load_engine_plugins(self, "gfx")
-        sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO)
+        
         self.max_textures = glGetInteger(GL_MAX_TEXTURE_IMAGE_UNITS)
 
         #
@@ -146,8 +146,8 @@ class Myrmidon_Backend(object):
     def update_screen_post(self):
         for x in self.plugins:
             self.plugins[x].post_render()
-        #print(Game.engine["window"].screen.title)
-        sdl2.SDL_GL_SwapWindow(Game.engine["window"].screen)
+        #sdl2.ext.Window.update()
+
 
     def draw_entities(self, entity_list):
         if self.z_order_dirty == True:

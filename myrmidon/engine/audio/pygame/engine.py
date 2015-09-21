@@ -33,8 +33,7 @@ A Pygame (and conversely, SDL) driven backend for handling and playing audio.
 """
 
 from myrmidon import BaseAudio
-import pygame
-
+import sdl2
 
 class Myrmidon_Backend(object):
     
@@ -47,7 +46,6 @@ class Myrmidon_Backend(object):
             if audio is None:
                 return
             if isinstance(audio, str):
-                filename = audio
                 self.sound = pygame.mixer.Sound(audio)
             else:
                 self.sound = audio
